@@ -1,6 +1,7 @@
 #ifndef LIERO_TEXT_HPP
 #define LIERO_TEXT_HPP
 
+#include <cstdio>
 #include <string>
 
 inline std::string toString(int v)

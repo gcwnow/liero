@@ -186,16 +186,9 @@ void Gfx::setVideoMode()
 		screen = 0;
 	}
 
-	if(!SDL_VideoModeOK(320, 200, 8, flags)
-	|| gfx.doubleRes)
-	{
-		screen = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 200, 8, 0, 0, 0, 0);
-		back = SDL_SetVideoMode(640, 480, 8, flags);
-	}
-	else
-	{
-		back = screen = SDL_SetVideoMode(320, 200, 8, flags);
-	}
+	screen = SDL_SetVideoMode(320, 200, 8, flags);
+	back = screen;
+
 	screenPixels = static_cast<unsigned char*>(screen->pixels);
 	screenPitch = screen->pitch;
 }

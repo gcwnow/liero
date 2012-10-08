@@ -924,6 +924,7 @@ void Worm::processMovement()
 	{
 		bool left = gfx.testKey(keyLeft());
 		bool right = gfx.testKey(keyRight());
+		bool jump = gfx.testKey(keyJump());
 		
 		if(left && !right)
 		{
@@ -957,7 +958,7 @@ void Worm::processMovement()
 			animate = true;
 		}
 		
-		if(left && right)
+		if((left && right) || (left && jump) || (right && jump))
 		{
 			if(ableToDig)
 			{
