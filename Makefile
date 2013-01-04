@@ -1,9 +1,9 @@
-TOOLCHAIN = /opt/opendingux-toolchain
+TOOLCHAIN = /opt/gcw0-toolchain
 CXX = $(TOOLCHAIN)/usr/bin/mipsel-linux-g++
 STRIP = $(TOOLCHAIN)/usr/bin/mipsel-linux-strip
 CXXFLAGS = -mips32 -mtune=mips32 -G0 -fomit-frame-pointer -ffunction-sections -ffast-math -fsingle-precision-constant -mbranch-likely
-INCLUDE = -I$(TOOLCHAIN)/usr/bin/usr/include/ -I$(TOOLCHAIN)/usr/bin/usr/include/SDL
-LIB = -lSDL_mixer -lSDL
+INCLUDE = -I$(TOOLCHAIN)/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/include/ -I$(TOOLCHAIN)/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/include/SDL
+LIB = -lSDL_mixer -lSDL -lpthread
 
 ifdef DEBUG
 	CXXFLAGS += -Wextra -Wall -ggdb3 -c
@@ -40,7 +40,7 @@ SRC = 	blit.cpp	\
 	weapsel.cpp	\
 	worm.cpp
 OBJ = $(SRC:.cpp=.o)
-EXE = liero.dge
+EXE = liero.elf
 
 all : $(SRC) $(EXE)
 
