@@ -12,9 +12,7 @@ int vectorLength(int x, int y)
 
 void loadTablesFromEXE()
 {
-	FILE* exe = openLieroEXE();
-	
-	fseek(exe, 0x1C41E, SEEK_SET);
+	FILE* exe = openFile("sintab.dat");
 	
 	for(int i = 0; i < 128; ++i)
 	{
