@@ -81,8 +81,3 @@ void Menu::readItems(FILE* f, int length, int count, bool colourPrefix, PalIdx c
 		items.push_back(MenuItem(colour, disColour, std::string(&temp[offset], length)));
 	}
 }
-
-void Menu::readItem(FILE* f, int offset, PalIdx colour, PalIdx disColour)
-{
-	items.push_back(MenuItem(colour, disColour, readPascalStringAt(f, offset)));
-}

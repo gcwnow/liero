@@ -29,9 +29,7 @@ struct MenuItem
 struct Menu
 {
 	void readItems(FILE* f, int length, int count, bool colourPrefix, PalIdx colour = 0, PalIdx disColour = 0);
-	
-	void readItem(FILE* f, int offset, PalIdx colour = 0, PalIdx disColour = 0);
-	
+
 	Menu(bool centered = false)
 	: itemHeight(8)
 	, centered(centered)
