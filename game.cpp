@@ -259,6 +259,7 @@ void Texts::loadFromEXE()
 		" committed suicide",
 		"Killed ",
 		"You're 'IT' now!",
+		// POSSIBLE DUPLICATES BELOW - TO REMOVAL
 		"SHOTGUN",
 		"CHAINGUN",
 		"RIFLE",
@@ -570,9 +571,51 @@ inline void readMembers(FILE* f, T(&arr)[N], U (T::*mem))
 
 void Game::loadWeapons()
 {
-	FILE* exe = openLieroEXE();
-	
-	fseek(exe, 112806, SEEK_SET);
+	const char *weaponsText[] =
+	{
+		"SHOTGUN",
+		"CHAINGUN",
+		"RIFLE",
+		"BAZOOKA",
+		"DIRTBALL",
+		"EXPLOSIVES",
+		"MINE",
+		"WINCHESTER",
+		"DOOMSDAY",
+		"FLAMER",
+		"GRENADE",
+		"LARPA",
+		"BLASTER",
+		"BOUNCY MINE",
+		"MINIGUN",
+		"CLUSTER BOMB",
+		"SUPER SHOTGUN",
+		"HANDGUN",
+		"GREENBALL",
+		"BIG NUKE",
+		"CRACKLER",
+		"ZIMM",
+		"MINI NUKE",
+		"FLOAT MINE",
+		"FAN",
+		"HELLRAIDER",
+		"CANNON",
+		"BOUNCY LARPA",
+		"LASER",
+		"SPIKEBALLS",
+		"NAPALM",
+		"UZI",
+		"MISSILE",
+		"CHIQUITA BOMB",
+		"BOOBY TRAP",
+		"GRASSHOPPER",
+		"MINI ROCKETS",
+		"DART",
+		"RB RAMPAGE",
+		"GAUSS GUN",
+	};
+
+	FILE* exe = openFile("weapons.dat");
 	
 	readMembers<Read8>(exe, weapons, &Weapon::detectDistance);
 	readMembers<ReadBool>(exe, weapons, &Weapon::affectByWorm);
@@ -628,47 +671,32 @@ void Game::loadWeapons()
 	readMembers<Read8>(exe, weapons, &Weapon::partTrailType);
 	readMembers<Dec<Read8> >(exe, weapons, &Weapon::partTrailObj);
 	readMembers<Read8>(exe, weapons, &Weapon::partTrailDelay);
-	
-	fseek(exe, 0x1B676, SEEK_SET);
+
 	for(int i = 0; i < 40; ++i)
 	{
-		weapons[i].name = readPascalString(exe, 14);
+		weapons[i].name = weaponsText[i];
 		weapons[i].id = i;
 	}
-	
+
 	// Special objects
-	fseek(exe, 115218, SEEK_SET);
 	readMembers<Dec<Read8> >(exe, sobjectTypes, &SObjectType::startSound);
-	//fseek(exe, 115232, SEEK_SET);
 	readMembers<Read8>(exe, sobjectTypes, &SObjectType::numSounds);
-	//fseek(exe, 115246, SEEK_SET);
 	readMembers<Read8>(exe, sobjectTypes, &SObjectType::animDelay);
-	//fseek(exe, 115260, SEEK_SET);
 	readMembers<Read8>(exe, sobjectTypes, &SObjectType::startFrame);
-	//fseek(exe, 115274, SEEK_SET);
 	readMembers<Read8>(exe, sobjectTypes, &SObjectType::numFrames);
-	//fseek(exe, 115288, SEEK_SET);
 	readMembers<Read8>(exe, sobjectTypes, &SObjectType::detectRange);
-	//fseek(exe, 115302, SEEK_SET);
 	readMembers<Read8>(exe, sobjectTypes, &SObjectType::damage);
-	//fseek(exe, 0x1C274, SEEK_SET);
 	readMembers<Read32>(exe, sobjectTypes, &SObjectType::blowAway); // blowAway has 13 slots, not 14. The last value will overlap with shadow.
-	fseek(exe, 115368, SEEK_SET);
 	readMembers<ReadBool>(exe, sobjectTypes, &SObjectType::shadow);
-	//fseek(exe, 115382, SEEK_SET);
 	readMembers<Read8>(exe, sobjectTypes, &SObjectType::shake);
-	//fseek(exe, 115396, SEEK_SET);
 	readMembers<Read8>(exe, sobjectTypes, &SObjectType::flash);
-	//fseek(exe, 115410, SEEK_SET); // Was 115409
 	readMembers<Dec<Read8> >(exe, sobjectTypes, &SObjectType::dirtEffect);
 	
 	for(int i = 0; i < 14; ++i) // TODO: Unhardcode
 	{
 		sobjectTypes[i].id = i;
 	}
-	
-	fseek(exe, 111430, SEEK_SET);
-	
+
 	readMembers<Read8>(exe, nobjectTypes, &NObjectType::detectDistance);
 	readMembers<Read16>(exe, nobjectTypes, &NObjectType::gravity);
 	readMembers<Read16>(exe, nobjectTypes, &NObjectType::speed);
