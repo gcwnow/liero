@@ -62,7 +62,7 @@ void Font::drawText(char const* str, std::size_t len, int x, int y, int colour)
 		{
 			unsigned char c = static_cast<unsigned char>(*str);
 			
-			if(!c)
+			if(!c || c == '\n')
 			{
 				x = orgX;
 				y += 8;

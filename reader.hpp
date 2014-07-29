@@ -29,6 +29,21 @@ inline std::string readPascalString(FILE* f, unsigned char fieldLen)
 	char txt[256];
 	fread(txt, 1, fieldLen, f);
 	unsigned char length = static_cast<unsigned char>(txt[0]);
+
+//	txt[1+length] = '\0';
+//	printf("\n\"");
+//	for(int i = 0; i < length; i++)
+//	{
+//		if((unsigned int)(unsigned char)txt[1+i] < (unsigned char)32 || (unsigned int)(unsigned char)txt[i] >= (unsigned char)127)
+//			printf("\\x%02X", txt[1+i]);
+//		else
+//			if(txt[1+i] == '\"')
+//				printf("\\%c", txt[1+i]);
+//			else
+//				printf("%c", txt[1+i]);
+//	}
+//	printf("\", ");
+
 	return std::string(txt + 1, length);
 }
 
@@ -49,6 +64,19 @@ inline std::string readPascalStringAt(FILE* f, int location)
 	fread(&length, 1, 1, f);
 	char txt[256];
 	fread(txt, 1, length, f);
+//	txt[length] = '\0';
+//	printf("\n\"");
+//	for(int i = 0; i < length; i++)
+//	{
+//		if((unsigned int)(unsigned char)txt[i] < (unsigned char)32 || (unsigned int)(unsigned char)txt[i] >= (unsigned char)127)
+//			printf("\\x%02X", txt[i]);
+//		else
+//			if(txt[i] == '\"')
+//				printf("\\%c", txt[i]);
+//			else
+//				printf("%c", txt[i]);
+//	}
+//	printf("\", ");
 	return std::string(txt, length);
 }
 

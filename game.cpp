@@ -23,70 +23,344 @@ int stoneTab[3][4] =
 
 void Texts::loadFromEXE()
 {
-	FILE* exe = openLieroEXE();
+	const char *texts[] =
+	{
+		"[RANDOM]",
+		"Random",
+		"REGENERATE LEVEL",
+		"RELOAD LEVEL",
+		"LIERO v1.33 Copyright Mets\x84nEl\x84imet 1998,1999",
+		"Liero v1.33 (c) Mets\x84nEl\x84imet 1998,1999",
+		"S - Save Options",
+		"L - Load Options",
+		"Current Options: No filename",
+		"Current Options: ",
+		"Kill'em All",
+		"Game of Tag",
+		"Capture the Flag",
+		"Simple CtF",
+		"LIVES",
+		"TIME TO LOSE",
+		"FLAGS TO WIN",
+		"OFF",
+		"ON",
+		"Human",
+		"CPU",
+		"Menu",
+		"Bonus",
+		"Banned",
+		"Esc",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"0",
+		"+",
+		"`",
+		"Backspace",
+		"Tab",
+		"Q",
+		"W",
+		"E",
+		"R",
+		"T",
+		"Y",
+		"U",
+		"I",
+		"O",
+		"P",
+		"",
+		"^",
+		"Enter",
+		"Left Crtl",
+		"A",
+		"S",
+		"D",
+		"F",
+		"G",
+		"H",
+		"J",
+		"K",
+		"L",
+		"�",
+		"",
+		"�",
+		"Left Shift",
+		"'",
+		"Z",
+		"X",
+		"C",
+		"V",
+		"B",
+		"N",
+		"M",
+		",",
+		".",
+		"-",
+		"Right Shift",
+		"* (Pad)",
+		"Left Alt",
+		"",
+		"Caps Lock",
+		"F1",
+		"F2",
+		"F3",
+		"F4",
+		"F5",
+		"F6",
+		"F7",
+		"F8",
+		"F9",
+		"F10",
+		"Num Lock",
+		"Scroll Lock",
+		"7 (Pad)",
+		"8 (Pad)",
+		"9 (Pad)",
+		"- (Pad)",
+		"4 (Pad)",
+		"5 (Pad)",
+		"6 (Pad)",
+		"+ (Pad)",
+		"1 (Pad)",
+		"2 (Pad)",
+		"3 (Pad)",
+		"0 (Pad)",
+		", (Pad)",
+		"",
+		"",
+		"<",
+		"F11",
+		"F12",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"Enter (Pad)",
+		"Right Ctrl",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"Print Screen",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"/ (Pad)",
+		"",
+		"Print Screen",
+		"Right Alt",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"Home",
+		"Up",
+		"Page Up",
+		"",
+		"Left",
+		"",
+		"Right",
+		"",
+		"End",
+		"Down",
+		"Page Down",
+		"Insert",
+		"Delete",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"Select your weapons:",
+		"Level: Random",
+		"Level: \"",
+		"\"",
+		"Randomize",
+		"DONE!",
+		"Reloading...",
+		"Press fire to go...",
+		"Kills: ",
+		"Lives: ",
+		"Select level:",
+		"Weapon",
+		"Availability",
+		"At least one weapon must\nbe available in the menu!",
+		"Initializing sound system...",
+		"Loading sounds...",
+		"BaseIO=",
+		"h    IRQ",
+		"    DMA8=",
+		"    DMA16=",
+		"DSP version ",
+		":  ",
+		"16-bit, ",
+		"Auto-initialized",
+		"Extended memory succesfully initialized",
+		"Free XMS memory:  ",
+		"k  ",
+		"Loading & thinking...",
+		"OK",
+		"OK",
+		"Press any key...",
+		" committed suicide",
+		"Killed ",
+		"You're 'IT' now!",
+		"SHOTGUN",
+		"CHAINGUN",
+		"RIFLE",
+		"BAZOOKA",
+		"DIRTBALL",
+		"EXPLOSIVES",
+		"MINE",
+		"WINCHESTER",
+		"DOOMSDAY",
+		"FLAMER",
+		"GRENADE",
+		"LARPA",
+		"BLASTER",
+		"BOUNCY MINE",
+		"MINIGUN",
+		"CLUSTER BOMB",
+		"SUPER SHOTGUN",
+		"HANDGUN",
+		"GREENBALL",
+		"BIG NUKE",
+		"CRACKLER",
+		"ZIMM",
+		"MINI NUKE",
+		"FLOAT MINE",
+		"FAN",
+		"HELLRAIDER",
+		"CANNON",
+		"BOUNCY LARPA",
+		"LASER",
+		"SPIKEBALLS",
+		"NAPALM",
+		"UZI",
+		"MISSILE",
+		"CHIQUITA BOMB",
+		"BOOBY TRAP",
+		"GRASSHOPPER",
+		"MINI ROCKETS",
+		"DART",
+		"RB RAMPAGE",
+		"GAUSS GUN",
+		"",
+		"",
+		""
+	};
+
+	random = texts[0];
+	random2 = texts[1];
+	regenLevel = texts[2];
+	reloadLevel = texts[3];
 	
+	copyright1 = texts[4];
+	copyright2 = texts[5];
+	saveoptions = texts[6];
+	loadoptions = texts[7];
+	curOptNoFile = texts[8];
+	curOpt = texts[9];
 	
-	random = readPascalStringAt(exe, 0xD6E3);
-	random2 = readPascalStringAt(exe, 0xD413);
-	regenLevel = readPascalStringAt(exe, 0xD41A);
-	reloadLevel = readPascalStringAt(exe, 0xD42D);
-	
-	copyright1 = readPascalStringAt(exe, 0xFB60);
-	copyright2 = readPascalStringAt(exe, 0xE693);
-	saveoptions = readPascalStringAt(exe, 0xE6BB);
-	loadoptions = readPascalStringAt(exe, 0xE6CC);
-	curOptNoFile = readPascalStringAt(exe, 0xE6DD);
-	curOpt = readPascalStringAt(exe, 0xE6FA);
-	
-	fseek(exe, 0x1B2BA, SEEK_SET);
 	for(int i = 0; i < 4; ++i)
 	{
-		gameModes[i] = readPascalString(exe, 17);
+		gameModes[i] = texts[10+i];
 	}
 	
-	gameModeSpec[0] = readPascalStringAt(exe, 0xD3EC);
-	gameModeSpec[1] = readPascalStringAt(exe, 0xD3F2);
-	gameModeSpec[2] = readPascalStringAt(exe, 0xD3FF);
+	gameModeSpec[0] = texts[14];
+	gameModeSpec[1] = texts[15];
+	gameModeSpec[2] = texts[16];
 	
-	onoff[0] = readPascalStringAt(exe, 0x1AE84);
-	onoff[1] = readPascalStringAt(exe, 0x1AE88);
+	onoff[0] = texts[17];
+	onoff[1] = texts[18];
 	
-	controllers[0] = readPascalStringAt(exe, 0x1B204);
-	controllers[1] = readPascalStringAt(exe, 0x1B20A);
+	controllers[0] = texts[19];
+	controllers[1] = texts[20];
 	
-	fseek(exe, 0x1B2FE, SEEK_SET);
 	for(int i = 0; i < 3; ++i)
 	{
-		weapStates[i] = readPascalString(exe, 13);
+		weapStates[i] = texts[21+i];
 	}
 		
-	fseek(exe, 0x209A6, SEEK_SET);
 	for(int i = 1; i < 177; ++i) // First key starts at 1
 	{
-		keyNames[i] = readPascalString(exe, 13);
+		keyNames[i] = texts[24+i-1];
 	}
 	
-	selWeap = readPascalStringAt(exe, 0xA9C0);
-	levelRandom = readPascalStringAt(exe, 0xA9D5);
-	levelIs1 = readPascalStringAt(exe, 0xA9E3);
-	levelIs2 = readPascalStringAt(exe, 0xA9EC);
-	randomize = readPascalStringAt(exe, 0xA9F4);
-	done = readPascalStringAt(exe, 0xA9EE);
+	selWeap = texts[200];
+	levelRandom = texts[201];
+	levelIs1 = texts[202];
+	levelIs2 = texts[203];
+	randomize = texts[204];
+	done = texts[205];
 	
-	reloading = readPascalStringAt(exe, 0x7583);
-	pressFire = readPascalStringAt(exe, 0x7590);
+	reloading = texts[206];
+	pressFire = texts[207];
 	
-	kills = readPascalStringAt(exe, 0x75A4);
-	lives = readPascalStringAt(exe, 0x75AC);
+	kills = texts[208];
+	lives = texts[209];
 	
-	selLevel = readPascalStringAt(exe, 0xD6F2);
+	selLevel = texts[210];
 	
-	weapon = readPascalStringAt(exe, 0xD700);
-	availability = readPascalStringAt(exe, 0xD707);
-	noWeaps = readPascalStringAt(exe, 0xD714);
+	weapon = texts[211];
+	availability = texts[212];
+	noWeaps = texts[213];
 	
-	fseek(exe, 0xFC5B, SEEK_SET);
-	copyrightBarFormat = readUint8(exe);
+	copyrightBarFormat = 64;
 }
 
 Game::~Game()
