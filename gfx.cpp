@@ -195,15 +195,12 @@ void Gfx::setVideoMode()
 
 void Gfx::loadPalette()
 {
-	FILE* exe = openLieroEXE();
-	
-	std::fseek(exe, 132774, SEEK_SET);
-	
+	FILE* exe = openFile("palette.dat");
+
 	exepal.read(exe);
 	origpal = exepal;
 	pal = origpal;
-	
-	std::fseek(exe, 0x1AF0C, SEEK_SET);
+
 	for(int i = 0; i < 4; ++i)
 	{
 		colourAnim[i].from = readUint8(exe);
