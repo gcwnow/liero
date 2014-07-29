@@ -446,22 +446,16 @@ void Game::loadTextures()
 
 void Game::loadOthers()
 {
-	FILE* exe = openLieroEXE();
-	
-	fseek(exe, 0x1C1E2, SEEK_SET);
-	
+	FILE* exe = openFile("others.dat");
+
 	for(int i = 0; i < 2; ++i)
 	for(int j = 0; j < 2; ++j)
 		bonusRandTimer[j][i] = readUint16(exe);
-		
-	fseek(exe, 0x1AEEE + 2, SEEK_SET);
-	
+
 	for(int i = 0; i < 2; ++i)
 	for(int j = 0; j < 7; ++j)
 		aiParams.k[i][j] = readUint16(exe);
-		
-	fseek(exe, 0x1C1E0, SEEK_SET);
-	
+
 	for(int i = 0; i < 2; ++i)
 		bonusSObjects[i] = readUint8(exe) - 1;
 }
