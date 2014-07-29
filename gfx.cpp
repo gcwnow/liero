@@ -210,19 +210,16 @@ void Gfx::loadPalette()
 
 void Gfx::loadMenus()
 {
-	FILE* exe = openLieroEXE();
-	
-	fseek(exe, 0x1B08A, SEEK_SET);
+	FILE* exe = openFile("menus.dat");	
+
 	mainMenu.readItems(exe, 14, 4, true);
-	
-	fseek(exe, 0x1B0C2, SEEK_SET);
+
 	settingsMenu.readItems(exe, 21, 15, false, 48, 7);
-	
+
 	settingsMenuValues.items.assign(12, MenuItem(48, 7, ""));
-	
-	fseek(exe, 0x1B210, SEEK_SET);
+
 	playerMenu.readItems(exe, 13, 13, false, 48, 7);
-	
+
 	playerMenuValues.items.assign(13, MenuItem(48, 7, ""));
 }
 
