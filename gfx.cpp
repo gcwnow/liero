@@ -210,7 +210,7 @@ void Gfx::loadPalette()
 
 void Gfx::loadMenus()
 {
-	FILE* exe = openFile("menus.dat");	
+	FILE* exe = openFile("menus.dat");
 
 	mainMenu.readItems(exe, 14, 4, true);
 
@@ -225,9 +225,8 @@ void Gfx::loadMenus()
 
 void Gfx::loadGfx()
 {
-	FILE* exe = openLieroEXE();
-	
-	fseek(exe, 0x1C1DE, SEEK_SET);
+	FILE* exe = openFile("bonus.dat");
+
 	bonusFrames[0] = readUint8(exe);
 	bonusFrames[1] = readUint8(exe);
 	
