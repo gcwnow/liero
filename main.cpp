@@ -72,7 +72,7 @@ try
 	game.texts.loadFromEXE();
 	initKeys();
 	game.rand.seed(Uint32(std::time(0)));
-	loadConstantsFromEXE();
+	loadConstants();
 	loadTablesFromEXE();
 
 	Console::clear();

@@ -11,7 +11,6 @@ extern std::string lieroOPT;
 // Return an opened file
 FILE* openFile(std::string const& name);
 
-FILE* openLieroEXE();
 FILE* openLieroSND();
 FILE* openLieroCHR();
 

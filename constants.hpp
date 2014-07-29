@@ -143,6 +143,6 @@ extern int C[MaxC];
 extern std::string S[MaxS];
 extern bool H[MaxH];
 
-void loadConstantsFromEXE();
+void loadConstants();
 
 #endif // LIERO_CONSTANTS_HPP

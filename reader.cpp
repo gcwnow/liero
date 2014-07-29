@@ -51,11 +51,6 @@ FILE* openFile(std::string const& name)
 	return f;
 }
 
-FILE* openLieroEXE()
-{
-	return openFile(lieroEXE);
-}
-
 FILE* openLieroSND()
 {
 	return openFile(lieroSND);

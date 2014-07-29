@@ -245,74 +245,130 @@ int C[MaxC];
 std::string S[MaxS];
 bool H[MaxH];
 
-void loadConstantsFromEXE()
+void loadConstants()
 {
-	FILE* exe = openLieroEXE();
-	
-	for(int i = 0; CSint32desc[i][1] >= 0; ++i)
+	const int cVars[] =
 	{
-		fseek(exe, CSint32desc[i][1], SEEK_SET);
-		int a = readUint16(exe);
-		fseek(exe, CSint32desc[i][2], SEEK_SET);
-		int b = readSint16(exe);
-		C[CSint32desc[i][0]] = a + (b << 16);
-		
-		//std::cout << C[CSint32desc[i][0]] << std::endl;
-	}
-	
-	for(int i = 0; CSint24desc[i][1] >= 0; ++i)
+		4000,
+		450,
+		-53248,
+		53248,
+		-53248,
+		53248,
+		1500,
+		3000,
+		-29184,
+		3000,
+		29184,
+		56064,
+		70000,
+		4000,
+		-70000,
+		4000,
+		1000,
+		170,
+		4000,
+		1500,
+		89,
+		100,
+		160,
+		160,
+		5,
+		5,
+		494,
+		340,
+		83,
+		100,
+		2,
+		2,
+		2,
+		3,
+		2,
+		3,
+		4,
+		40,
+		100,
+		220,
+		116,
+		64,
+		12,
+		64,
+		24,
+		24,
+		62,
+		64,
+		10,
+		51,
+		10,
+		29,
+		80,
+		2,
+		1000,
+		1700,
+		3,
+		3,
+		0,
+		0,
+		0,
+		0,
+		163,
+		-8386178,
+		-1410,
+		-1410,
+		504,
+		350,
+		35
+	};
+
+	const char *sTexts[] =
 	{
-		fseek(exe, CSint24desc[i][1], SEEK_SET);
-		int a = readUint16(exe);
-		fseek(exe, CSint24desc[i][2], SEEK_SET);
-		int b = readSint8(exe);
-		C[CSint24desc[i][0]] = a + (b << 16);
-		
-		//std::cout << C[CSint24desc[i][0]] << std::endl;
-	}
-	
-	for(int i = 0; CSint16desc[i][1] >= 0; ++i)
+		"Initializing sound system...",
+		"Loading sounds...",
+		"BaseIO=",
+		"h    IRQ",
+		"    DMA8=",
+		"    DMA16=",
+		"DSP version ",
+		":  ",
+		"16-bit, ",
+		"Auto-initialized",
+		"Extended memory succesfully initialized",
+		"Free XMS memory:  ",
+		"k  ",
+		"Loading & thinking...",
+		"OK",
+		"OK",
+		"Press any key...",
+		" committed suicide",
+		"Killed ",
+		"You're 'IT' now!"
+	};
+
+	const bool hVars[] =
 	{
-		fseek(exe, CSint16desc[i][1], SEEK_SET);
-		C[CSint16desc[i][0]] = readSint16(exe);
-		
-		//std::cout << C[CSint16desc[i][0]] << std::endl;
-	}
-	
-	for(int i = 0; CSint8desc[i][1] >= 0; ++i)
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false
+	};
+
+	for(int i = 0; i < MaxC; i++)
 	{
-		fseek(exe, CSint8desc[i][1], SEEK_SET);
-		C[CSint8desc[i][0]] = readSint8(exe);
-	}
-	
-	for(int i = 0; CUint8desc[i][1] >= 0; ++i)
-	{
-		fseek(exe, CUint8desc[i][1], SEEK_SET);
-		C[CUint8desc[i][0]] = readUint8(exe);
-		
-		//std::cout << C[CUint8desc[i][0]] << std::endl;
-	}
-	
+		C[i] = cVars[i];
+	}	
+
 	for(int i = 0; Sstringdesc[i][1] >= 0; ++i)
 	{
-		S[Sstringdesc[i][0]] = readPascalStringAt(exe, Sstringdesc[i][1]);
+		S[Sstringdesc[i][0]] = sTexts[i];
 	}
-	
-	for(int i = 0; Hhackdesc[i].indicators; ++i)
+
+	for(int i = 0; i < MaxH; i++)
 	{
-		int (*ind)[2] = Hhackdesc[i].indicators;
-		bool active = true;
-		for(; (*ind)[0] >= 0; ++ind)
-		{
-			std::fseek(exe, (*ind)[0], SEEK_SET);
-			int b = std::fgetc(exe);
-			if(b != (*ind)[1])
-			{
-				active = false;
-				break;
-			}
-		}
-		
-		H[Hhackdesc[i].which] = active;
+		H[i] = hVars[i];
 	}
 }
