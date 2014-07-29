@@ -706,15 +706,11 @@ void Game::loadWeapons()
 
 void Game::loadTextures()
 {
-	FILE* exe = openLieroEXE();
-	
-	fseek(exe, 0x1C208, SEEK_SET);
+	FILE* exe = openFile("textures.dat");
+
 	readMembers<ReadBool>(exe, textures, &Texture::nDrawBack);
-	fseek(exe, 0x1C1EA, SEEK_SET);
 	readMembers<Read8>(exe, textures, &Texture::mFrame);
-	fseek(exe, 0x1C1F4, SEEK_SET);
 	readMembers<Read8>(exe, textures, &Texture::sFrame);
-	fseek(exe, 0x1C1FE, SEEK_SET);
 	readMembers<Read8>(exe, textures, &Texture::rFrame);
 }
 
