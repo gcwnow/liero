@@ -215,10 +215,8 @@ void Game::addWorm(Worm* worm)
 
 void Game::loadMaterials()
 {
-	FILE* exe = openLieroEXE();
-	
-	std::fseek(exe, 0x01C2E0, SEEK_SET);
-	
+	FILE* exe = openFile("materials.dat");
+
 	for(int i = 0; i < 256; ++i)
 	{
 		materials[i].flags = 0;
@@ -236,8 +234,6 @@ void Game::loadMaterials()
 			materials[j].flags |= bit << i;
 		}
 	}
-	
-	std::fseek(exe, 0x01AEA8, SEEK_SET);
 	
 	fread(bits, 1, 32, exe);
 	
