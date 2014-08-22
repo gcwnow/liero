@@ -707,9 +707,13 @@ void Game::generateLevel()
 	else
 	{
 		// TODO: Check .LEV as well as .lev
+#if defined(HOME_DIR)
+		if(!level.load(joinPath(lieroConfigRoot, settings.levelFile + ".lev")))
+			level.generateRandom();
+#else
 		if(!level.load(joinPath(lieroEXERoot, settings.levelFile + ".lev")))
 			level.generateRandom();
-
+#endif
 	}
 	
 	oldRandomLevel = settings.randomLevel;

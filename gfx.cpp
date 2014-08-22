@@ -334,8 +334,12 @@ void Gfx::updateSettingsMenu()
 	settingsMenuValues.items[5].string = game.texts.onoff[game.settings.map];
 	
 	settingsMenuValues.items[6].string = toString(game.settings.blood) + '%';
-	
+
+#if defined(HOME_DIR)
+	std::string levelPath = joinPath(lieroConfigRoot, game.settings.levelFile + ".lev");
+#else
 	std::string levelPath = joinPath(lieroEXERoot, game.settings.levelFile + ".lev");
+#endif
 	if(!game.settings.randomLevel && fileExists(levelPath))
 	{
 		settingsMenuValues.items[7].string = '"' + game.settings.levelFile + '"';
@@ -621,8 +625,12 @@ void Gfx::settingEnter(int item)
 			std::vector<std::string> list;
 			
 			list.push_back(game.texts.random);
-			
+
+#if defined(HOME_DIR)
+			DirectoryIterator di(lieroConfigRoot);
+#else
 			DirectoryIterator di(joinPath(lieroEXERoot, ".")); // TODO: Fix lieroEXERoot to be "." instead of ""
+#endif
 			
 			for(; di; ++di)
 			{

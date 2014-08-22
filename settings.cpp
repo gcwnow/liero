@@ -36,8 +36,8 @@ Settings::Settings()
 , flagsToWin(20)
 , gameMode(0)
 , shadow(true)
-, loadChange(false)
-, namesOnBonuses(false)
+, loadChange(true)
+, namesOnBonuses(true)
 , regenerateLevel(false)
 , lives(15)
 , loadingTime(100)
@@ -52,19 +52,98 @@ Settings::Settings()
 	
 	wormSettings[0].selWeapX = 50; // TODO: Read from exe
 	wormSettings[1].selWeapX = 210;
-	
+
+#if !defined(PLATFORM_GCW0)
 	unsigned char defControls[2][7] =
 	{
 		{0x13, 0x21, 0x20, 0x22, 0x1D, 0x2A, 0x38},
 		{0xA0, 0xA8, 0xA3, 0xA5, 0x75, 0x90, 0x36}
 	};
+#endif
 	
 	unsigned char defRGB[2][3] =
 	{
 		{26, 26, 63},
 		{15, 43, 15}
 	};
-	
+
+#if defined(PLATFORM_GCW0)
+
+	// Default weapon settings
+	weapTable[0] = 0;
+	weapTable[1] = 0;
+	weapTable[2] = 0;
+	weapTable[3] = 0;
+	weapTable[4] = 0;
+	weapTable[5] = 1;
+	weapTable[6] = 0;
+	weapTable[7] = 0;
+	weapTable[8] = 1;
+	weapTable[9] = 1;
+	weapTable[10] = 0;
+	weapTable[11] = 1;
+	weapTable[12] = 0;
+	weapTable[13] = 1;
+	weapTable[14] = 1;
+	weapTable[15] = 1;
+	weapTable[16] = 1;
+	weapTable[17] = 0;
+	weapTable[18] = 0;
+	weapTable[19] = 1;
+	weapTable[20] = 1;
+	weapTable[21] = 1;
+	weapTable[22] = 1;
+	weapTable[23] = 1;
+	weapTable[24] = 0;
+	weapTable[25] = 1;
+	weapTable[26] = 1;
+	weapTable[27] = 1;
+	weapTable[28] = 1;
+	weapTable[29] = 1;
+	weapTable[30] = 1;
+	weapTable[31] = 0;
+	weapTable[32] = 1;
+	weapTable[33] = 1;
+	weapTable[34] = 1;
+	weapTable[35] = 1;
+	weapTable[36] = 1;
+	weapTable[37] = 0;
+	weapTable[38] = 0;
+	weapTable[39] = 1;
+
+	// Player 1
+	wormSettings[0].health = 100;
+	wormSettings[0].controls[0] = 160;	// up
+	wormSettings[0].controls[1] = 168;	// down
+	wormSettings[0].controls[2] = 163;	// left
+	wormSettings[0].controls[3] = 165;	// right
+	wormSettings[0].controls[4] = 29;	// lctrl
+	wormSettings[0].controls[5] = 42;	// lshift
+	wormSettings[0].controls[6] = 56;	// lalt
+	wormSettings[0].controller = 0;		// Player
+	wormSettings[0].name = "Player";
+	wormSettings[0].randomName = false;
+	// Player 2
+	wormSettings[1].health = 100;
+	wormSettings[1].controls[0] = 17;	// w
+	wormSettings[1].controls[1] = 31;	// s
+	wormSettings[1].controls[2] = 30;	// a
+	wormSettings[1].controls[3] = 32;	// d
+	wormSettings[1].controls[4] = 34;	// g
+	wormSettings[1].controls[5] = 35;	// h
+	wormSettings[1].controls[6] = 33;	// f
+	wormSettings[1].controller = 1;		// AI
+	wormSettings[1].name = "GCW0";
+	wormSettings[1].randomName = false;
+
+	for(int i = 0; i < 2; ++i)
+	{
+		for(int j = 0; j < 3; ++j)
+		{
+			wormSettings[i].rgb[j] = defRGB[i][j];
+		}
+	}
+#else
 	for(int i = 0; i < 2; ++i)
 	{
 		for(int j = 0; j < 7; ++j)
@@ -77,6 +156,7 @@ Settings::Settings()
 			wormSettings[i].rgb[j] = defRGB[i][j];
 		}
 	}
+#endif
 }
 
 template<int L, int H>

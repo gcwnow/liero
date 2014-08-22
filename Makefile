@@ -20,7 +20,7 @@ else
 	LDFLAGS += -s
 endif
 
-CXXFLAGS += -DHOME_DIR
+CXXFLAGS += -DHOME_DIR -DPLATFORM_GCW0
 
 BINDIR := $(OUTDIR)/bin
 OBJDIR := $(OUTDIR)/obj
