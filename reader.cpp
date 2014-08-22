@@ -6,6 +6,7 @@
 
 std::string lieroOPT;
 std::string lieroEXERoot;
+std::string lieroConfigRoot;
 
 namespace
 {
@@ -96,4 +97,17 @@ void setLieroEXE(std::string const& path)
 	lieroOPT = changeLeaf(path, "LIERO.OPT");
 	
 	lieroEXERoot = getRoot(lieroEXE);
+}
+
+void setConfigRoot()
+{
+#if defined(HOME_DIR)
+	lieroConfigRoot = getHome();
+	if(lieroConfigRoot.empty())
+	{
+		lieroConfigRoot = lieroEXERoot;
+	}
+#else
+	lieroConfigRoot = lieroEXERoot;
+#endif
 }

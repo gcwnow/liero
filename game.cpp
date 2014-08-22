@@ -723,12 +723,20 @@ void Game::generateLevel()
 
 void Game::saveSettings()
 {
+#if defined(HOME_DIR)
+	settings.save(joinPath(lieroConfigRoot, settingsFile + ".DAT"));
+#else
 	settings.save(joinPath(lieroEXERoot, settingsFile + ".DAT"));
+#endif
 }
 
 bool Game::loadSettings()
 {
+#if defined(HOME_DIR)
+	return settings.load(joinPath(lieroConfigRoot, settingsFile + ".DAT"));
+#else
 	return settings.load(joinPath(lieroEXERoot, settingsFile + ".DAT"));
+#endif
 }
 
 void Game::draw()

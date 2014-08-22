@@ -3,6 +3,11 @@
 #include <stdexcept>
 #include <cassert>
 #include <cctype>
+#if defined(HOME_DIR)
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#endif
 
 std::string changeLeaf(std::string const& path, std::string const& newLeaf)
 {
@@ -11,6 +16,24 @@ std::string changeLeaf(std::string const& path, std::string const& newLeaf)
 	if(lastSep == std::string::npos)
 		return newLeaf; // We assume there's only a leaf in the path
 	return path.substr(0, lastSep + 1) + newLeaf;
+}
+
+std::string getHome()
+{
+	std::string configFolder;
+#if defined(HOME_DIR)
+	char *home = getenv("HOME");
+
+	if(home != NULL)
+	{
+		configFolder.append(home);
+		configFolder.append("/.liero");
+		{
+			mkdir(configFolder.c_str(), 0755); // Create the directory if doesn't exist
+		}
+	}
+#endif
+	return configFolder;
 }
 
 std::string getRoot(std::string const& path)

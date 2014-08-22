@@ -6,6 +6,7 @@
 #include <SDL/SDL.h>
 
 extern std::string lieroEXERoot;
+extern std::string lieroConfigRoot;
 extern std::string lieroOPT;
 
 // Return an opened file
@@ -107,6 +108,8 @@ inline Sint32 readSint32(FILE* f)
 }
 
 void setLieroEXE(std::string const& path);
+
+void setConfigRoot();
 
 // Close old files
 void processReader();

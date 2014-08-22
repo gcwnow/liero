@@ -20,6 +20,8 @@ else
 	LDFLAGS += -s
 endif
 
+CXXFLAGS += -DHOME_DIR
+
 BINDIR := $(OUTDIR)/bin
 OBJDIR := $(OUTDIR)/obj
 

@@ -61,6 +61,8 @@ try
 	if(!exeSet)
 		setLieroEXE("LIERO.EXE");
 
+	setConfigRoot();
+
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	
 /*

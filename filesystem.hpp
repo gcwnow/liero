@@ -6,6 +6,7 @@
 #include <memory>
 
 std::string changeLeaf(std::string const& path, std::string const& newLeaf);
+std::string getHome();
 std::string getRoot(std::string const& path);
 std::string getBasename(std::string const& path);
 std::string getExtension(std::string const& path);
