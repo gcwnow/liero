@@ -54,7 +54,11 @@ void Texts::loadFromEXE()
 		"Menu",
 		"Bonus",
 		"Banned",
+#if defined(PLATFORM_GCW0)
+		"Button SELECT",
+#else
 		"Esc",
+#endif
 		"1",
 		"2",
 		"3",
@@ -67,8 +71,16 @@ void Texts::loadFromEXE()
 		"0",
 		"+",
 		"`",
+#if defined(PLATFORM_GCW0)
+		"Button R",
+#else
 		"Backspace",
+#endif
+#if defined(PLATFORM_GCW0)
+		"Button L",
+#else
 		"Tab",
+#endif
 		"Q",
 		"W",
 		"E",
@@ -81,8 +93,16 @@ void Texts::loadFromEXE()
 		"P",
 		"",
 		"^",
+#if defined(PLATFORM_GCW0)
+		"Button START",
+#else
 		"Enter",
+#endif
+#if defined(PLATFORM_GCW0)
+		"Button A",
+#else
 		"Left Crtl",
+#endif
 		"A",
 		"S",
 		"D",
@@ -95,7 +115,11 @@ void Texts::loadFromEXE()
 		"�",
 		"",
 		"�",
+#if defined(PLATFORM_GCW0)
+		"Button X",
+#else
 		"Left Shift",
+#endif
 		"'",
 		"Z",
 		"X",
@@ -109,8 +133,16 @@ void Texts::loadFromEXE()
 		"-",
 		"Right Shift",
 		"* (Pad)",
+#if defined(PLATFORM_GCW0)
+		"Button B",
+#else
 		"Left Alt",
-		"",
+#endif
+#if defined(PLATFORM_GCW0)
+		"Button Y",
+#else
+		"Space",
+#endif
 		"Caps Lock",
 		"F1",
 		"F2",

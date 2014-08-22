@@ -1433,8 +1433,14 @@ int Gfx::menuLoop()
 			}
 		}
 
+#if defined(PLATFORM_GCW0)
+		if(testSDLKeyOnce(SDLK_RETURN)
+		|| testSDLKeyOnce(SDLK_KP_ENTER)
+		|| testSDLKeyOnce(SDLK_LCTRL))
+#else
 		if(testSDLKeyOnce(SDLK_RETURN)
 		|| testSDLKeyOnce(SDLK_KP_ENTER))
+#endif
 		{
 			sfx.play(27, -1);
 			
@@ -1458,7 +1464,7 @@ int Gfx::menuLoop()
 		}
 
 #if defined(PLATFORM_GCW0)
-		if(testSDLKeyOnce(SDLK_r))
+		if(testSDLKeyOnce(SDLK_BACKSPACE))
 #else
 		if(testSDLKeyOnce(SDLK_s)) // TODO: Check for the real 's' here?
 #endif
@@ -1470,7 +1476,7 @@ int Gfx::menuLoop()
 		}
 
 #if defined(PLATFORM_GCW0)
-		if(testSDLKeyOnce(SDLK_l))
+		if(testSDLKeyOnce(SDLK_TAB))
 #else
 		if(testSDLKeyOnce(SDLK_l)) // TODO: Check if inputString should make a sound even when loading fails
 #endif

@@ -117,9 +117,9 @@ Settings::Settings()
 	wormSettings[0].controls[1] = 168;	// down
 	wormSettings[0].controls[2] = 163;	// left
 	wormSettings[0].controls[3] = 165;	// right
-	wormSettings[0].controls[4] = 29;	// lctrl
-	wormSettings[0].controls[5] = 42;	// lshift
-	wormSettings[0].controls[6] = 56;	// lalt
+	wormSettings[0].controls[4] = 56;	// lalt
+	wormSettings[0].controls[5] = 57;	// space
+	wormSettings[0].controls[6] = 29;	// lshift
 	wormSettings[0].controller = 0;		// Player
 	wormSettings[0].name = "Player";
 	wormSettings[0].randomName = false;
