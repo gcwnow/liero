@@ -31,8 +31,13 @@ void Texts::loadFromEXE()
 		"RELOAD LEVEL",
 		"LIERO v1.33 Copyright Mets\x84nEl\x84imet 1998,1999",
 		"Liero v1.33 (c) Mets\x84nEl\x84imet 1998,1999",
+#if defined(PLATFORM_GCW0)
+		"R - Save Options",
+		"L - Load Options",
+#else
 		"S - Save Options",
 		"L - Load Options",
+#endif
 		"Current Options: No filename",
 		"Current Options: ",
 		"Kill'em All",

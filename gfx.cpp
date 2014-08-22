@@ -1456,16 +1456,24 @@ int Gfx::menuLoop()
 				updateSettingsMenu();
 			}
 		}
-		
+
+#if defined(PLATFORM_GCW0)
+		if(testSDLKeyOnce(SDLK_r))
+#else
 		if(testSDLKeyOnce(SDLK_s)) // TODO: Check for the real 's' here?
+#endif
 		{
 			if(inputString(game.settingsFile, 8, 35, 65, upperCaseOnly, "Filename: ", false))
 			{
 				game.saveSettings();
 			}
 		}
-		
+
+#if defined(PLATFORM_GCW0)
+		if(testSDLKeyOnce(SDLK_l))
+#else
 		if(testSDLKeyOnce(SDLK_l)) // TODO: Check if inputString should make a sound even when loading fails
+#endif
 		{
 			while(inputString(game.settingsFile, 8, 35, 65, upperCaseOnly, "Filename: ", false))
 			{
