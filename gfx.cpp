@@ -917,7 +917,11 @@ void Gfx::settingEnter(int item)
 bool Gfx::inputString(std::string& dest, std::size_t maxLen, int x, int y, int (*filter)(int), std::string const& prefix, bool centered)
 {
 	std::string buffer = dest;
-	
+
+#if defined(PLATFORM_GCW0)
+	int cursorAt =  buffer.length() - 1;
+#endif
+
 	while(true)
 	{
 		std::string str = prefix + buffer + '_';
@@ -929,22 +933,57 @@ bool Gfx::inputString(std::string& dest, std::size_t maxLen, int x, int y, int (
 		int clrX = x - 10 - adjust;
 		
 		int offset = clrX + y*320; // TODO: Unhardcode 320
+
+#if defined(PLATFORM_GCW0)
+		std::string sel;
+
+		int selWidth = 0;
+
+		if(cursorAt < 0)
+		{
+			cursorAt = 0;
+		}
+#endif
 		
 		blitImageNoKeyColour(screen, &frozenScreen[offset], clrX, y, clrX + 10 + width, 8, 320);
 		
 		drawRoundedBox(x - 2 - adjust, y, 0, 7, width);
 		
+#if defined(PLATFORM_GCW0)
+		sel += str.at(cursorAt);
+
 		font.drawText(str, x - adjust, y + 1, 50);
+
+		for(int i = 0; i < cursorAt; i++)
+		{
+			selWidth += font.chars[str.at(i) - 2].width;
+		}
+
+		font.drawText(sel, x - adjust + selWidth, y + 1, 10);
+#else
+		font.drawText(str, x - adjust, y + 1, 50);
+#endif
 		flip();
 		SDL_keysym key(waitForKey());
 		
 		switch(key.sym)
 		{
 		case SDLK_BACKSPACE:
+#if defined(PLATFORM_GCW0)
+			if(!buffer.empty() && cursorAt > 0)
+			{
+				buffer.erase(buffer.size() - 1);
+			}
+			if((unsigned int)cursorAt >= buffer.length())
+			{
+				cursorAt = buffer.length() - 1;
+			}
+#else
 			if(!buffer.empty())
 			{
 				buffer.erase(buffer.size() - 1);
 			}
+#endif
 		break;
 		
 		case SDLK_RETURN:
@@ -957,6 +996,51 @@ bool Gfx::inputString(std::string& dest, std::size_t maxLen, int x, int y, int (
 		case SDLK_ESCAPE:
 			clearKeys();
 			return false;
+
+#if defined(PLATFORM_GCW0)
+		case SDLK_UP:
+			{
+				char &c = buffer.at(cursorAt);
+				if(++c > 126)
+				{
+					c = 32;
+				}
+			}
+			break;
+		case SDLK_DOWN:
+			{	
+				char &c = buffer.at(cursorAt);
+				if(--c < 32)
+				{
+					c = 126;
+				}
+			}
+			break;
+		case SDLK_LEFT:
+			cursorAt--;
+			if(cursorAt < 0)
+			{
+				cursorAt = 0;
+			}
+			break;
+		case SDLK_RIGHT:
+			cursorAt++;
+			if((unsigned int)cursorAt >= buffer.length())
+			{
+				int k = 97; // 'a';
+				if(k
+				&& buffer.size() < maxLen
+				&& (
+				    !filter
+				 || (k = filter(k))))
+				{
+					buffer += char(k);
+				}
+
+				cursorAt = buffer.length() - 1;
+			}
+			break;
+#endif
 			
 		default:
 			int k = unicodeToDOS(key.unicode);
