@@ -729,9 +729,15 @@ void Gfx::settingEnter(int item)
 					if(topItem + 13 < curSel)
 						topItem = curSel - 13;
 				}
-				
+
+#if defined(PLATFORM_GCW0)
+				if(testSDLKeyOnce(SDLK_RETURN)
+				|| testSDLKeyOnce(SDLK_KP_ENTER)
+				|| testSDLKeyOnce(SDLK_LCTRL))
+#else
 				if(testSDLKeyOnce(SDLK_RETURN)
 				|| testSDLKeyOnce(SDLK_KP_ENTER))
+#endif
 				{
 					sfx.play(27, -1);
 					
@@ -755,7 +761,11 @@ void Gfx::settingEnter(int item)
 				flip();
 				process();
 			}
+#if defined(PLATFORM_GCW0)
+			while(!testSDLKeyOnce(SDLK_ESCAPE) && !testSDLKeyOnce(SDLK_LALT));
+#else
 			while(!testSDLKeyOnce(SDLK_ESCAPE));
+#endif
 		}
 		break;
 		
@@ -884,8 +894,12 @@ void Gfx::settingEnter(int item)
 				
 				flip();
 				process();
-				
+
+#if defined(PLATFORM_GCW0)
+				if(testSDLKeyOnce(SDLK_ESCAPE) || testSDLKeyOnce(SDLK_LALT))
+#else
 				if(testSDLKeyOnce(SDLK_ESCAPE))
+#endif
 				{
 					int count = 0;
 					
@@ -985,14 +999,20 @@ bool Gfx::inputString(std::string& dest, std::size_t maxLen, int x, int y, int (
 			}
 #endif
 		break;
-		
+
+#if defined(PLATFORM_GCW0)
+		case SDLK_LCTRL:
+#endif
 		case SDLK_RETURN:
 		case SDLK_KP_ENTER:
 			dest = buffer;
 			sfx.play(27, -1);
 			clearKeys();
 			return true;
-			
+
+#if defined(PLATFORM_GCW0)
+		case SDLK_LALT:
+#endif
 		case SDLK_ESCAPE:
 			clearKeys();
 			return false;
@@ -1203,9 +1223,15 @@ void Gfx::playerSettings(int player)
 			
 			}
 		}
-		
+
+#if defined(PLATFORM_GCW0)
+		if(testSDLKeyOnce(SDLK_RETURN)
+		|| testSDLKeyOnce(SDLK_KP_ENTER)
+		|| testSDLKeyOnce(SDLK_LCTRL))
+#else
 		if(testSDLKeyOnce(SDLK_RETURN)
 		|| testSDLKeyOnce(SDLK_KP_ENTER))
+#endif
 		{
 			sfx.play(27, -1);
 			
@@ -1241,7 +1267,7 @@ void Gfx::playerSettings(int player)
 			case 11:
 			{
 				SDL_keysym key(waitForKey());
-				
+
 				if(key.sym != SDLK_ESCAPE)
 				{
 					Uint32 k = SDLToDOSKey(key.sym);
@@ -1275,8 +1301,11 @@ void Gfx::playerSettings(int player)
 		
 		menuCyclic = (menuCyclic + 1) & 3;
 	}
+#if defined(PLATFORM_GCW0)
+	while(!testSDLKeyOnce(SDLK_ESCAPE) && !testSDLKeyOnce(SDLK_LALT));
+#else
 	while(!testSDLKeyOnce(SDLK_ESCAPE));
-	
+#endif
 }
 
 void Gfx::settingLeftRight(int change, int item)
@@ -1462,8 +1491,11 @@ int Gfx::menuLoop()
 			settingsMenu.draw(178, 20, true);
 			settingsMenuValues.draw(278, 20, true);
 		}
-		
+#if defined(PLATFORM_GCW0)
+		if(testSDLKeyOnce(SDLK_ESCAPE) || testSDLKeyOnce(SDLK_LALT))
+#else
 		if(testSDLKeyOnce(SDLK_ESCAPE))
+#endif
 		{
 			if(curMenu == 1)
 				curMenu = 0;

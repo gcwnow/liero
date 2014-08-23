@@ -1031,7 +1031,7 @@ void Game::startGame(bool isStartingGame)
 			if(viewports[i]->shake > 0)
 				viewports[i]->shake -= 4000; // TODO: Read 4000 from exe?
 		}
-		
+
 		if(gfx.testSDLKeyOnce(SDLK_ESCAPE)
 		&& !shutDown)
 		{
