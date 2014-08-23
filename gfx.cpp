@@ -970,7 +970,7 @@ bool Gfx::inputString(std::string& dest, std::size_t maxLen, int x, int y, int (
 		{
 		case SDLK_BACKSPACE:
 #if defined(PLATFORM_GCW0)
-			if(!buffer.empty() && cursorAt > 0)
+			if(!buffer.empty() && buffer.length() > 1)
 			{
 				buffer.erase(buffer.size() - 1);
 			}
