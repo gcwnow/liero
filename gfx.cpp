@@ -587,7 +587,7 @@ void Gfx::settingEnter(int item)
 	switch(item)
 	{
 		case 0: //GAME MODE
-			game.settings.gameMode = (game.settings.gameMode + 1) % 4;
+			game.settings.gameMode = (game.settings.gameMode + 1) % 2;
 		break;
 		
 		case 1:  //LIVES / TIME TO LOSE / FLAGS TO WIN //D772
@@ -1330,7 +1330,7 @@ void Gfx::settingLeftRight(int change, int item)
 
 			resetLeftRight();
 
-			game.settings.gameMode = (game.settings.gameMode + change + 4) % 4;
+			game.settings.gameMode = (game.settings.gameMode + change + 2) % 2;
 			
 			
 		break;
