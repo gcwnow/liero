@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Liero
+Comment=Real-time worm shooter
+Exec=liero.elf
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=liero
+Categories=games;
