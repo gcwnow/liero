@@ -51,6 +51,7 @@ opk:
 	cp -R $(DATADIR) $(RELEASEDIR)
 	cp $(OPKDIR)/* $(RELEASEDIR)
 	cp COPYRIGHT $(RELEASEDIR)
+	cp README.md $(RELEASEDIR)
 	mksquashfs $(RELEASEDIR) $(BINDIR)/liero.opk -all-root -noappend -no-exports -no-xattrs
 
 clean:

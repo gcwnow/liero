@@ -1,6 +1,8 @@
 Forked from http://code.google.com/p/openliero/
 Fork maintained by Artur Rojek (Zear)
 
+See COPYRIGHT for licensing info.
+
 Changes:
 03/10/2014 - first official release
 * Extracted essencial game data from the DOS LIERO.EXE, removing the necessity of requiring that file

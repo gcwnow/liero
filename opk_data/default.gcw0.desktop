@@ -6,4 +6,5 @@ Terminal=false
 Type=Application
 StartupNotify=true
 Icon=liero
+X-OD-Manual=README.md
 Categories=games;
