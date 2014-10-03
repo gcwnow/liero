@@ -5,7 +5,7 @@
 #include <string>
 #include <SDL/SDL.h>
 
-extern std::string lieroEXERoot;
+extern std::string lieroDataRoot;
 extern std::string lieroConfigRoot;
 extern std::string lieroOPT;
 
@@ -107,7 +107,7 @@ inline Sint32 readSint32(FILE* f)
 	return temp[0] + (temp[1] << 8) + (temp[2] << 16) + (static_cast<char>(temp[3]) << 24);
 }
 
-void setLieroEXE(std::string const& path);
+void setLieroDataRoot(std::string const& path);
 
 void setConfigRoot();
 

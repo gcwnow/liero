@@ -1,4 +1,5 @@
 #include "math.hpp"
+#include "filesystem.hpp"
 #include "reader.hpp"
 #include <cmath>
 
@@ -12,7 +13,7 @@ int vectorLength(int x, int y)
 
 void loadTablesFromEXE()
 {
-	FILE* exe = openFile("sintab.dat");
+	FILE* exe = openFile(joinPath(lieroDataRoot, "sintab.dat"));
 	
 	for(int i = 0; i < 128; ++i)
 	{

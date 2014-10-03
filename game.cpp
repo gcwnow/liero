@@ -467,7 +467,7 @@ void Game::addWorm(Worm* worm)
 
 void Game::loadMaterials()
 {
-	FILE* exe = openFile("materials.dat");
+	FILE* exe = openFile(joinPath(lieroDataRoot, "materials.dat"));
 
 	for(int i = 0; i < 256; ++i)
 	{
@@ -592,7 +592,7 @@ void Game::loadWeapons()
 		"GAUSS GUN",
 	};
 
-	FILE* exe = openFile("weapons.dat");
+	FILE* exe = openFile(joinPath(lieroDataRoot, "weapons.dat"));
 	
 	readMembers<Read8>(exe, weapons, &Weapon::detectDistance);
 	readMembers<ReadBool>(exe, weapons, &Weapon::affectByWorm);
@@ -711,7 +711,7 @@ void Game::loadWeapons()
 
 void Game::loadTextures()
 {
-	FILE* exe = openFile("textures.dat");
+	FILE* exe = openFile(joinPath(lieroDataRoot, "textures.dat"));
 
 	readMembers<ReadBool>(exe, textures, &Texture::nDrawBack);
 	readMembers<Read8>(exe, textures, &Texture::mFrame);
@@ -721,7 +721,7 @@ void Game::loadTextures()
 
 void Game::loadOthers()
 {
-	FILE* exe = openFile("others.dat");
+	FILE* exe = openFile(joinPath(lieroDataRoot, "others.dat"));
 
 	for(int i = 0; i < 2; ++i)
 	for(int j = 0; j < 2; ++j)
@@ -748,7 +748,7 @@ void Game::generateLevel()
 		if(!level.load(joinPath(lieroConfigRoot, settings.levelFile + ".lev")))
 			level.generateRandom();
 #else
-		if(!level.load(joinPath(lieroEXERoot, settings.levelFile + ".lev")))
+		if(!level.load(joinPath(lieroDataRoot, settings.levelFile + ".lev")))
 			level.generateRandom();
 #endif
 	}
@@ -767,7 +767,7 @@ void Game::saveSettings()
 #if defined(HOME_DIR)
 	settings.save(joinPath(lieroConfigRoot, settingsFile + ".DAT"));
 #else
-	settings.save(joinPath(lieroEXERoot, settingsFile + ".DAT"));
+	settings.save(joinPath(lieroDataRoot, settingsFile + ".DAT"));
 #endif
 }
 
@@ -776,7 +776,7 @@ bool Game::loadSettings()
 #if defined(HOME_DIR)
 	return settings.load(joinPath(lieroConfigRoot, settingsFile + ".DAT"));
 #else
-	return settings.load(joinPath(lieroEXERoot, settingsFile + ".DAT"));
+	return settings.load(joinPath(lieroDataRoot, settingsFile + ".DAT"));
 #endif
 }
 

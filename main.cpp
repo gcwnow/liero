@@ -53,13 +53,13 @@ try
 		}
 		else
 		{
-			setLieroEXE(argv[i]);
+			setLieroDataRoot(argv[i]);
 			exeSet = true;
 		}
 	}
 	
 	if(!exeSet)
-		setLieroEXE("LIERO.EXE");
+		setLieroDataRoot("./data");
 
 	setConfigRoot();
 
@@ -167,7 +167,7 @@ try
 	gfx.mainLoop();
 	
 	game.settingsFile = "LIERO";
-	game.settings.save(joinPath(lieroEXERoot, "LIERO.DAT"));
+	game.settings.save(joinPath(lieroDataRoot, "LIERO.DAT"));
 	
 	FILE* f = fopen(lieroOPT.c_str(), "wb");
 	fwrite(game.settingsFile.data(), 1, game.settingsFile.size(), f);

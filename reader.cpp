@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 std::string lieroOPT;
-std::string lieroEXERoot;
+std::string lieroDataRoot;
 std::string lieroConfigRoot;
 
 namespace
@@ -19,7 +19,6 @@ struct ReaderFile
 
 typedef std::map<std::string, ReaderFile> ReaderFileMap;
 
-std::string lieroEXE;
 std::string lieroCHR;
 std::string lieroSND;
 
@@ -87,16 +86,15 @@ void closeAllCachedFiles()
 	}
 }
 
-void setLieroEXE(std::string const& path)
+void setLieroDataRoot(std::string const& path)
 {
 	//TODO: Close cached files
-	
-	lieroEXE = path;
-	lieroCHR = changeLeaf(path, "LIERO.CHR");
-	lieroSND = changeLeaf(path, "LIERO.SND");
-	lieroOPT = changeLeaf(path, "LIERO.OPT");
-	
-	lieroEXERoot = getRoot(lieroEXE);
+
+	lieroDataRoot = path;
+
+	lieroCHR = joinPath(lieroDataRoot, "LIERO.CHR");
+	lieroSND = joinPath(lieroDataRoot, "LIERO.SND");
+	lieroOPT = joinPath(lieroDataRoot, "LIERO.OPT");
 }
 
 void setConfigRoot()
@@ -105,9 +103,9 @@ void setConfigRoot()
 	lieroConfigRoot = getHome();
 	if(lieroConfigRoot.empty())
 	{
-		lieroConfigRoot = lieroEXERoot;
+		lieroConfigRoot = lieroDataRoot;
 	}
 #else
-	lieroConfigRoot = lieroEXERoot;
+	lieroConfigRoot = lieroDataRoot;
 #endif
 }

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Liero
-Comment=Real-time worm shooter
+Comment=Earthworm action game
 Exec=liero.elf
 Terminal=false
 Type=Application

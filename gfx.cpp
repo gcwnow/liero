@@ -195,7 +195,7 @@ void Gfx::setVideoMode()
 
 void Gfx::loadPalette()
 {
-	FILE* exe = openFile("palette.dat");
+	FILE* exe = openFile(joinPath(lieroDataRoot, "palette.dat"));
 
 	exepal.read(exe);
 	origpal = exepal;
@@ -210,7 +210,7 @@ void Gfx::loadPalette()
 
 void Gfx::loadMenus()
 {
-	FILE* exe = openFile("menus.dat");
+	FILE* exe = openFile(joinPath(lieroDataRoot, "menus.dat"));
 
 	mainMenu.readItems(exe, 14, 4, true);
 
@@ -225,7 +225,7 @@ void Gfx::loadMenus()
 
 void Gfx::loadGfx()
 {
-	FILE* exe = openFile("bonus.dat");
+	FILE* exe = openFile(joinPath(lieroDataRoot, "bonus.dat"));
 
 	bonusFrames[0] = readUint8(exe);
 	bonusFrames[1] = readUint8(exe);
@@ -338,7 +338,7 @@ void Gfx::updateSettingsMenu()
 #if defined(HOME_DIR)
 	std::string levelPath = joinPath(lieroConfigRoot, game.settings.levelFile + ".lev");
 #else
-	std::string levelPath = joinPath(lieroEXERoot, game.settings.levelFile + ".lev");
+	std::string levelPath = joinPath(lieroDataRoot, game.settings.levelFile + ".lev");
 #endif
 	if(!game.settings.randomLevel && fileExists(levelPath))
 	{
@@ -629,7 +629,7 @@ void Gfx::settingEnter(int item)
 #if defined(HOME_DIR)
 			DirectoryIterator di(lieroConfigRoot);
 #else
-			DirectoryIterator di(joinPath(lieroEXERoot, ".")); // TODO: Fix lieroEXERoot to be "." instead of ""
+			DirectoryIterator di(joinPath(lieroDataRoot, ""));
 #endif
 			
 			for(; di; ++di)

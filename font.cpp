@@ -1,4 +1,5 @@
 #include "font.hpp"
+#include "filesystem.hpp"
 #include "reader.hpp"
 #include "gfx.hpp"
 #include "colour.hpp"
@@ -11,7 +12,7 @@ void Font::loadFromEXE()
 	std::size_t const FontSize = 250 * 8 * 8 + 1;
 	std::vector<unsigned char> temp(FontSize);
 	
-	FILE* exe = openFile("font.dat");
+	FILE* exe = openFile(joinPath(lieroDataRoot, "font.dat"));
 	
 	fread(&temp[0], 1, FontSize, exe);
 	
