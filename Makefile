@@ -5,7 +5,10 @@ CXXFLAGS := -ffunction-sections -ffast-math -fsingle-precision-constant
 CXXFLAGS += $(shell $(SYSROOT)/usr/bin/sdl-config --cflags)
 LIBS := $(shell $(SYSROOT)/usr/bin/sdl-config --libs) -lSDL_mixer
 
-OUTDIR := output/$(MACHINE)
+OUTDIR		:= output/$(MACHINE)
+DATADIR		:= data
+OPKDIR		:= opk_data
+RELEASEDIR	:= $(OUTDIR)/release
 
 ifneq ($(filter mipsel-gcw0-%,$(MACHINE)),)
 CXXFLAGS += -mips32 -mtune=mips32 -mbranch-likely -G0
@@ -27,7 +30,7 @@ OBJDIR := $(OUTDIR)/obj
 
 SRC := $(wildcard *.cpp)
 OBJ := $(SRC:%.cpp=$(OBJDIR)/%.o)
-EXE := $(BINDIR)/liero
+EXE := $(BINDIR)/liero.elf
 
 .PHONY: all clean
 
@@ -42,5 +45,14 @@ $(OBJ): $(OBJDIR)/%.o: %.cpp | $(OBJDIR)
 $(BINDIR) $(OBJDIR):
 	mkdir -p $@
 
+opk:
+	mkdir -p $(RELEASEDIR)
+	cp $(EXE) $(RELEASEDIR)
+	cp -R $(DATADIR) $(RELEASEDIR)
+	cp $(OPKDIR)/* $(RELEASEDIR)
+	cp COPYRIGHT $(RELEASEDIR)
+	mksquashfs $(RELEASEDIR) $(BINDIR)/liero.opk -all-root -noappend -no-exports -no-xattrs
+
 clean:
 	rm -rf output
+	rm -rf $(RELEASEDIR)
