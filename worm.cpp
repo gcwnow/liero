@@ -354,7 +354,7 @@ void Worm::process()
 			&& weapons[currentWeapon].delayLeft <= 0)
 			{
 				fire();
-				if (!settings->controller)
+				if (!settings->controller && settings->rumble)
 				{
 					Shake_Play(rumbleDevice[index], rumbleEffectId[index][effectWeapon]);
 				}

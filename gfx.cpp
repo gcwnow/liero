@@ -5,12 +5,14 @@
 #include "text.hpp"
 #include "keys.hpp"
 #include "filesystem.hpp"
+#include "rumble.hpp"
 #include <cstring>
 #include <cassert>
 #include <cstdlib>
 #include <cctype>
 #include <SDL/SDL.h>
 #include <iostream>
+#include <shake.h>
 
 /*
 ds:0000 is 0x 1AE80
@@ -219,8 +221,12 @@ void Gfx::loadMenus()
 	settingsMenuValues.items.assign(12, MenuItem(48, 7, ""));
 
 	playerMenu.readItems(exe, 13, 13, false, 48, 7);
+	// Add extra menu items not present in the exe.
+	playerMenu.items.push_back(MenuItem(48, 7, "RUMBLE"));
+	playerMenu.items.push_back(MenuItem(48, 7, "DEVICE"));
+	playerMenu.items.push_back(MenuItem(48, 7, "GAIN"));
 
-	playerMenuValues.items.assign(13, MenuItem(48, 7, ""));
+	playerMenuValues.items.assign(16, MenuItem(48, 7, ""));
 }
 
 void Gfx::loadGfx()
@@ -374,6 +380,10 @@ void Gfx::updatePlayerMenu(int player)
 	}
 
 	playerMenuValues.items[12].string = game.texts.controllers[game.settings.wormSettings[player].controller];
+	playerMenuValues.items[13].string = game.settings.wormSettings[player].rumble ? "ON" : "OFF";
+	strncpy(game.settings.wormSettings[player].rumbleDeviceName, rumbleDevice[player] ? Shake_DeviceName(rumbleDevice[player]) : "-", 17);
+	playerMenuValues.items[14].string = game.settings.wormSettings[player].rumbleDeviceName;
+	playerMenuValues.items[15].string = toString(game.settings.wormSettings[player].rumbleGain) + '%';
 }
 
 
@@ -1115,7 +1125,7 @@ void Gfx::playerSettings(int player)
 		playerMenu.draw(178, 20, false, curSel);
 		playerMenuValues.draw(273, 20, false, curSel);
 		
-		for(int o = 0; o < 12; o++)
+		for(int o = 0; o < 15; o++)
 		{
 			int ypos = (o<<3);
 
@@ -1150,7 +1160,7 @@ void Gfx::playerSettings(int player)
 			sfx.play(26, -1);
 			--curSel;
 			if(curSel < 0)
-				curSel = 12;
+				curSel = 15;
 		} // CFD0
 
 		if(testSDLKeyOnce(SDLK_DOWN))
@@ -1158,7 +1168,7 @@ void Gfx::playerSettings(int player)
 			sfx.play(25, -1);
 		
 			++curSel;
-			if(curSel > 12)
+			if(curSel > 15)
 				curSel = 0;
 		} // D002
 		
@@ -1218,6 +1228,70 @@ void Gfx::playerSettings(int player)
 					sfx.play(26, -1); // Should it be 25?
 					ws.controller = (ws.controller + 1) % 2;
 					updatePlayerMenu(player);
+				}
+			break;
+
+			case 13:
+
+				if(testSDLKeyOnce(SDLK_LEFT))
+				{
+					sfx.play(25, -1);
+					ws.rumble = !ws.rumble;
+					if (ws.rumble)
+					{
+						Shake_Play(rumbleDevice[player], effectTest);
+					}
+					updatePlayerMenu(player);
+				}
+				if(testSDLKeyOnce(SDLK_RIGHT))
+				{
+					sfx.play(26, -1);
+					ws.rumble = !ws.rumble;
+					if (ws.rumble)
+					{
+						Shake_Play(rumbleDevice[player], rumbleEffectId[player][effectTest]);
+					}
+					updatePlayerMenu(player);
+				}
+			break;
+//			case 14:
+//
+//				if(testSDLKeyOnce(SDLK_LEFT))
+//				{
+//					sfx.play(25, -1);
+//					updatePlayerMenu(player);
+//				}
+//				if(testSDLKeyOnce(SDLK_RIGHT))
+//				{
+//					sfx.play(26, -1);
+//					updatePlayerMenu(player);
+//				}
+//			break;
+			case 15:
+//
+				if(testSDLKey(SDLK_LEFT))
+				{
+					if(ws.rumbleGain > 0)
+						--ws.rumbleGain;
+					updatePlayerMenu(player);
+					Shake_SetGain(rumbleDevice[player], ws.rumbleGain);
+
+					if (ws.rumble)
+					{
+						Shake_Play(rumbleDevice[player], rumbleEffectId[player][effectTest]);
+					}
+				}
+				if(testSDLKey(SDLK_RIGHT))
+				{
+					if(ws.rumbleGain < 100)
+						++ws.rumbleGain;
+					updatePlayerMenu(player);
+					Shake_SetGain(rumbleDevice[player], ws.rumbleGain);
+
+					if (ws.rumble)
+					{
+						Shake_Play(rumbleDevice[player], rumbleEffectId[player][effectTest]);
+					}
 				}
 			break;
 			
@@ -1285,6 +1359,15 @@ void Gfx::playerSettings(int player)
 				
 				clearKeys();
 			}
+			break;
+
+			case 15:
+				inputInteger(ws.rumbleGain, 0, 100, 5, 275, 140);
+				Shake_SetGain(rumbleDevice[player], ws.rumbleGain);
+				if (ws.rumble)
+				{
+					Shake_Play(rumbleDevice[player], rumbleEffectId[player][effectTest]);
+				}
 			break;
 			
 			}

@@ -64,6 +64,8 @@ struct WormSettings
 	, controller(0)
 	, randomName(true)
 	, colour(0)
+	, rumble(true)
+	, rumbleGain(15)
 	{
 		rgb[0] = 26;
 		rgb[1] = 26;
@@ -71,6 +73,7 @@ struct WormSettings
 		
 		std::memset(weapons, 0, sizeof(weapons));
 	}
+
 	
 	int health;
 	int controller; // CPU / Human
@@ -82,6 +85,10 @@ struct WormSettings
 	
 	int colour;
 	int selWeapX;
+
+	bool rumble;
+	char rumbleDeviceName[17];
+	int rumbleGain;
 };
 
 /*

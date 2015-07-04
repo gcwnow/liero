@@ -5,6 +5,7 @@ int rumbleEffectId[RUMBLE_DEVICES][effectCount];
 Shake_Effect rumbleEffectGetHurt;
 Shake_Effect rumbleEffectExplosion;
 Shake_Effect rumbleEffectWeapon;
+Shake_Effect rumbleEffectTest;
 int numOfDevices;
 
 void initRumble()
@@ -32,12 +33,14 @@ void initRumble()
 	Shake_SimplePeriodic(&rumbleEffectGetHurt, SHAKE_PERIODIC_SINE, 1.0, 0.0, 0.5, 0.0); 
 	Shake_SimplePeriodic(&rumbleEffectExplosion, SHAKE_PERIODIC_SINE, 0.0, 0.0, 0.0, 0.0);
 	Shake_SimplePeriodic(&rumbleEffectWeapon, SHAKE_PERIODIC_SINE, 0.6, 0.0, 0.1, 0.1);
+	Shake_SimplePeriodic(&rumbleEffectTest, SHAKE_PERIODIC_SINE, 1.0, 0.0, 0.4, 0.1);
 
 	for (int i = 0; i < RUMBLE_DEVICES; ++i)
 	{
 		rumbleEffectId[i][effectGetHurt] = Shake_UploadEffect(rumbleDevice[i], &rumbleEffectGetHurt);
 		rumbleEffectId[i][effectExplosion] = Shake_UploadEffect(rumbleDevice[i], &rumbleEffectExplosion);
 		rumbleEffectId[i][effectWeapon] = Shake_UploadEffect(rumbleDevice[i], &rumbleEffectWeapon);
+		rumbleEffectId[i][effectTest] = Shake_UploadEffect(rumbleDevice[i], &rumbleEffectTest);
 	}
 }
 

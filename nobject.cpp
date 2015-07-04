@@ -327,7 +327,7 @@ void NObject::process()
 			for (int i = 0; i < RUMBLE_DEVICES; ++i)
 			{
 				Worm& w = *game.worms[i];
-				if (w.settings->controller) // Worm is AI controlled. Ignore.
+				if (w.settings->controller || !w.settings->rumble) // Worm is AI controlled or rumble is OFF. Ignore.
 				{
 					continue;
 				}

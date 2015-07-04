@@ -119,7 +119,7 @@ void SObjectType::create(int x, int y, Worm* owner)
 					}
 				}
 
-				if (!w.settings->controller)
+				if (!w.settings->controller && w.settings->rumble)
 				{
 					Shake_Play(rumbleDevice[w.index], rumbleEffectId[w.index][effectGetHurt]);
 				}

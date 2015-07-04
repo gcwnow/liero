@@ -10,6 +10,7 @@ typedef enum rumbleEffectType
 	effectGetHurt = 0,
 	effectExplosion,
 	effectWeapon,
+	effectTest,
 	effectCount
 } rumbleEffectType;
 
@@ -19,6 +20,7 @@ extern int rumbleEffectId[RUMBLE_DEVICES][effectCount];
 extern Shake_Effect rumbleEffectGetHurt;
 extern Shake_Effect rumbleEffectExplosion;
 extern Shake_Effect rumbleEffectWeapon;
+extern Shake_Effect rumbleEffectTest;
 
 void initRumble();
 void closeRumble();
