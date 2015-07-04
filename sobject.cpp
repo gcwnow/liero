@@ -7,10 +7,12 @@
 #include "sfx.hpp"
 #include "console.hpp"
 #include "text.hpp"
+#include "rumble.hpp"
 #include <cmath>
 #include <cstdlib>
 #include <cassert>
 #include <iostream> // TEMP
+#include <shake.h>
 
 void SObjectType::create(int x, int y, Worm* owner)
 {
@@ -115,6 +117,11 @@ void SObjectType::create(int x, int y, Worm* owner)
 					{
 						sfx.play(18 + game.rand(3), w.wormSoundID);
 					}
+				}
+
+				if (!w.settings->controller)
+				{
+					Shake_Play(rumbleDevice[w.index], rumbleEffectId[w.index][effectGetHurt]);
 				}
 			}
 		} // for( ... worms ...

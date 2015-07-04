@@ -3,7 +3,7 @@ MACHINE := $(shell $(CXX) -dumpmachine)
 SYSROOT := $(shell $(CXX) -print-sysroot)
 CXXFLAGS := -ffunction-sections -ffast-math -fsingle-precision-constant
 CXXFLAGS += $(shell $(SYSROOT)/usr/bin/sdl-config --cflags)
-LIBS := $(shell $(SYSROOT)/usr/bin/sdl-config --libs) -lSDL_mixer
+LIBS := $(shell $(SYSROOT)/usr/bin/sdl-config --libs) -lSDL_mixer -lshake
 
 OUTDIR		:= output/$(MACHINE)
 DATADIR		:= data

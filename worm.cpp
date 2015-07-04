@@ -5,8 +5,10 @@
 #include "viewport.hpp"
 #include "constants.hpp"
 #include "console.hpp"
+#include "rumble.hpp"
 #include <cstdlib>
 #include <iostream>
+#include <shake.h>
 
 struct Point
 {
@@ -352,6 +354,10 @@ void Worm::process()
 			&& weapons[currentWeapon].delayLeft <= 0)
 			{
 				fire();
+				if (!settings->controller)
+				{
+					Shake_Play(rumbleDevice[index], rumbleEffectId[index][effectWeapon]);
+				}
 			}
 			else
 			{

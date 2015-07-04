@@ -18,6 +18,7 @@
 #include "math.hpp"
 #include "console.hpp"
 #include "platform.hpp"
+#include "rumble.hpp"
 
 #include <iostream>
 #include <ctime>
@@ -63,6 +64,7 @@ try
 
 	setConfigRoot();
 
+	initRumble();
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	
 /*
@@ -178,12 +180,14 @@ try
 	closeAllCachedFiles();
 	
 	SDL_Quit();
+	closeRumble();
 	
 	return 0;
 }
 catch(std::exception& ex)
 {
 	SDL_Quit();
+	closeRumble();
 	Console::setAttributes(0x2f);
 	Console::writeLine(std::string("EXCEPTION: ") + ex.what());
 	Console::waitForAnyKey();

@@ -3,7 +3,10 @@
 #include "gfx.hpp"
 #include "sfx.hpp"
 #include "bobject.hpp"
+#include "rumble.hpp"
 #include <iostream>
+#include <cmath>
+#include <shake.h>
 
 void NObjectType::create1(fixed velX, fixed velY, int x, int y, int colour, Worm* owner)
 {
@@ -319,6 +322,35 @@ void NObject::process()
 	
 	if(doExplode)
 	{
+		if(t.hitDamage)
+		{
+			for (int i = 0; i < RUMBLE_DEVICES; ++i)
+			{
+				Worm& w = *game.worms[i];
+				if (w.settings->controller) // Worm is AI controlled. Ignore.
+				{
+					continue;
+				}
+
+				double x1 = ftoi(x);
+				double x2 = ftoi(w.x);
+				double y1 = ftoi(y);
+				double y2 = ftoi(w.y);
+				double distance = std::sqrt(std::pow(x1-x2, 2)+std::pow(y1-y2, 2));
+
+				if (distance > 100)
+				{
+					continue;
+				}
+
+				Shake_SimplePeriodic(&rumbleEffectExplosion, SHAKE_PERIODIC_SINE, 1.0-fmod(distance,100)/100, 0.0, 0.05, 0.05);
+				rumbleEffectExplosion.id = rumbleEffectId[i][effectExplosion];
+				rumbleEffectId[i][effectExplosion] = Shake_UploadEffect(rumbleDevice[i], &rumbleEffectExplosion);
+
+				Shake_Play(rumbleDevice[i], rumbleEffectId[i][effectExplosion]);
+			}
+		}
+
 		if(t.createOnExp >= 0)
 		{
 			game.sobjectTypes[t.createOnExp].create(ftoi(x), ftoi(y), owner);
